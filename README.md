@@ -4,7 +4,7 @@ Este projeto tem como objetivo criar uma API de um pequeno e-commerce, contendo 
 
 # Time
 
-- Desenvolvedor: Lucas Alves
+- Desenvolvedor: Lucas Alves ([Linkedin](https://www.linkedin.com/in/lucas-alves-090524225/))
 - Instrutor: Jorge Aluizio ([Udemy](https://www.udemy.com/course/api-restful-de-vendas/))
 
 # Bibliotecas
@@ -48,7 +48,7 @@ Para reverter a última migration, faça:
 $ npm run typeorm migration:revert
 ```
 
-Finalmente, execute o comando abaixo:
+Finalmente, execute o comando abaixo para rodar a API:
 
 ```bash
 $ npm run dev
