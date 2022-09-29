@@ -1,3 +1,4 @@
+import { messageHelper } from '@helpers/message.helper';
 import AppError from '@shared/errors/app-error';
 import { getCustomRepository } from 'typeorm';
 import Product from '../typeorm/entities/Product';
@@ -8,13 +9,13 @@ interface IRquest {
 }
 
 class ShowProductService {
-  public async execute(id: IRquest): Promise<Product | undefined> {
+  public async execute(id: IRquest): Promise<Product> {
     const productsRepository = getCustomRepository(ProductRepository);
 
-    const product = productsRepository.findOne(id);
+    const product = await productsRepository.findOne(id);
 
     if (!product) {
-      throw new AppError('Product not found', 404);
+      throw new AppError(messageHelper.NOT_FOUND, 404);
     }
 
     return product;
