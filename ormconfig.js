@@ -5,6 +5,7 @@ module.exports = {
   "username": process.env.USER,
   "password": process.env.PASSWORD,
   "database": process.env.DATABASE,
+  "entities": ["./src/modules/**/typeorm/entities/*.ts"],
   "migrations": [
     "./src/shared/typeorm/migrations/*.ts"
   ],
