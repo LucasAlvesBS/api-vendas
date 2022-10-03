@@ -4,7 +4,6 @@ import DeleteProductService from '../services/DeleteProductService';
 import ListProductsService from '../services/ListProductsService';
 import ShowProductService from '../services/ShowProductService';
 import UpdateProductService from '../services/UpdateProductService';
-import { CreateProductDto } from '../typeorm/dtos/CreateProduct.dto';
 
 export default class ProductsController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -26,11 +25,11 @@ export default class ProductsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const body: CreateProductDto = request.body;
+    const { name, price, quantity } = request.body;
 
     const createProduct = new CreateProductService();
 
-    const product = await createProduct.execute(body);
+    const product = await createProduct.execute({ name, price, quantity });
 
     return response.json(product);
   }

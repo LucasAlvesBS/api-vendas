@@ -1,20 +1,25 @@
 import { messageHelper } from '@helpers/message.helper';
 import AppError from '@shared/errors/app-error';
 import { getCustomRepository } from 'typeorm';
-import { CreateProductDto } from '../typeorm/dtos/CreateProduct.dto';
 import Product from '../typeorm/entities/Product';
 import { ProductRepository } from '../typeorm/repositories/ProductsRepository';
 
+interface IRequest {
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 class CreateProductService {
-  public async execute(body: CreateProductDto): Promise<Product> {
+  public async execute({ name, price, quantity }: IRequest): Promise<Product> {
     const productsRepository = getCustomRepository(ProductRepository);
-    const productExists = await productsRepository.findByName(body.name);
+    const productExists = await productsRepository.findByName(name);
 
     if (productExists) {
       throw new AppError(messageHelper.CONFLICT, 409);
     }
 
-    const product = productsRepository.create(body);
+    const product = productsRepository.create({ name, price, quantity });
 
     await productsRepository.save(product);
 
