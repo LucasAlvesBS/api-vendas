@@ -1,7 +1,6 @@
 import { messageHelper } from '@helpers/message.helper';
 import AppError from '@shared/errors/app-error';
 import { getCustomRepository } from 'typeorm';
-import Product from '../typeorm/entities/Product';
 import { ProductRepository } from '../typeorm/repositories/ProductsRepository';
 
 interface IRquest {
@@ -12,12 +11,7 @@ interface IRquest {
 }
 
 class UpdateProductService {
-  public async execute({
-    id,
-    name,
-    price,
-    quantity,
-  }: IRquest): Promise<Product> {
+  public async execute({ id, name, price, quantity }: IRquest): Promise<void> {
     const productsRepository = getCustomRepository(ProductRepository);
 
     const product = await productsRepository.findOne(id);
@@ -37,8 +31,6 @@ class UpdateProductService {
     product.quantity = quantity;
 
     await productsRepository.save(product);
-
-    return product;
   }
 }
 
