@@ -16,7 +16,7 @@ class CreateProductService {
     const productExists = await productsRepository.findByName(name);
 
     if (productExists) {
-      throw new AppError(messageHelper.CONFLICT, 409);
+      throw new AppError(messageHelper.PRODUCT_CONFLICT, 409);
     }
 
     const product = productsRepository.create({ name, price, quantity });

@@ -23,7 +23,7 @@ class UpdateProductService {
     const productExists = await productsRepository.findByName(name);
 
     if (productExists && name !== product.name) {
-      throw new AppError(messageHelper.CONFLICT, 409);
+      throw new AppError(messageHelper.PRODUCT_CONFLICT, 409);
     }
 
     product.name = name;
