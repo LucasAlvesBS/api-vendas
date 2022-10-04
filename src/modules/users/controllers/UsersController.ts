@@ -42,9 +42,9 @@ export default class UsersController {
     const { name, email, password } = request.body;
     const { id } = request.params;
 
-    const updateProduct = new UpdateUserService();
+    const updateUser = new UpdateUserService();
 
-    await updateProduct.execute({ id, name, email, password });
+    await updateUser.execute({ id, name, email, password });
 
     return response.status(204).json();
   }
@@ -52,9 +52,9 @@ export default class UsersController {
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const deleteProduct = new DeleteUserService();
+    const deleteUser = new DeleteUserService();
 
-    await deleteProduct.execute({ id });
+    await deleteUser.execute({ id });
 
     return response.status(204).json();
   }

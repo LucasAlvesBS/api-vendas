@@ -1,4 +1,5 @@
 import { messageHelper } from '@helpers/message.helper';
+import { hash } from 'bcryptjs';
 import AppError from '@shared/errors/app-error';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
@@ -19,10 +20,12 @@ class CreateUserService {
       throw new AppError(messageHelper.USER_CONFLICT, 409);
     }
 
+    const hashedPassword = await hash(password, 10);
+
     const user = usersRepository.create({
       name,
       email,
-      password,
+      password: hashedPassword,
     });
 
     await usersRepository.save(user);
