@@ -5,7 +5,7 @@ import ListUsersService from '../services/ListUsersService';
 import ShowUserService from '../services/ShowUserService';
 import UpdateUserService from '../services/UpdateUserService';
 
-export default class UserController {
+export default class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const listUsers = new ListUsersService();
 
