@@ -2,8 +2,10 @@ import { messageHelper } from '@helpers/message.helper';
 import { compare } from 'bcryptjs';
 import AppError from '@shared/errors/app-error';
 import { getCustomRepository } from 'typeorm';
-import User from '../typeorm/entities/User';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
+import { sign } from 'jsonwebtoken';
+import { credentials } from '@config/credentials.config';
+import { viewAuthenticatedUser } from '@shared/views/users.view';
 
 interface IRequest {
   email: string;
@@ -11,7 +13,10 @@ interface IRequest {
 }
 
 class CreateSessionService {
-  public async execute({ email, password }: IRequest): Promise<User> {
+  public async execute({
+    email,
+    password,
+  }: IRequest): Promise<Record<string, unknown>> {
     const usersRepository = getCustomRepository(UsersRepository);
     const user = await usersRepository.findByEmail(email);
 
@@ -25,7 +30,16 @@ class CreateSessionService {
       throw new AppError(messageHelper.INVALID_USER, 401);
     }
 
-    return user;
+    const authenticatedUser = viewAuthenticatedUser(user);
+
+    const token = sign({ sub: user.id }, credentials.jwt, {
+      expiresIn: '1d',
+    });
+
+    return {
+      user: authenticatedUser,
+      token,
+    };
   }
 }
 
