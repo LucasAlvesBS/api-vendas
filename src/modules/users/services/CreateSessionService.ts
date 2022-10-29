@@ -4,7 +4,7 @@ import AppError from '@shared/errors/app-error';
 import { getCustomRepository } from 'typeorm';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 import { sign } from 'jsonwebtoken';
-import { credentials } from '@config/credentials.config';
+import { auth } from '@config/auth';
 import { viewAuthenticatedUser } from '@shared/views/users.view';
 
 interface IRequest {
@@ -32,8 +32,8 @@ class CreateSessionService {
 
     const authenticatedUser = viewAuthenticatedUser(user);
 
-    const token = sign({ sub: user.id }, credentials.jwt, {
-      expiresIn: '1d',
+    const token = sign({ sub: user.id }, auth.jwtSecret, {
+      expiresIn: auth.jwtExpiresIn,
     });
 
     return {

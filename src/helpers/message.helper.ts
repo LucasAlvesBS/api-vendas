@@ -3,4 +3,6 @@ export const messageHelper = {
   PRODUCT_CONFLICT: 'There is already one product with this name',
   USER_CONFLICT: 'Email address already used',
   INVALID_USER: 'Invalid credentials',
+  INVALID_TOKEN: 'The token is invalid',
+  TOKEN_MISSING: 'The header does not have a token',
 };
