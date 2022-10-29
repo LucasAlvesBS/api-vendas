@@ -23,7 +23,12 @@ usersRouter.post(
     [Segments.BODY]: {
       name: Joi.string().trim().required(),
       email: Joi.string().email().required(),
-      password: Joi.string().required(),
+      password: Joi.string()
+        .regex(
+          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+          'A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais',
+        )
+        .required(),
     },
   }),
   usersController.create,
@@ -38,7 +43,11 @@ usersRouter.put(
     [Segments.BODY]: {
       name: Joi.string().trim().required(),
       email: Joi.string().email().required(),
-      password: Joi.string().required(),
+      password: Joi.string()
+        .regex(
+          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+        )
+        .required(),
     },
   }),
   usersController.update,
