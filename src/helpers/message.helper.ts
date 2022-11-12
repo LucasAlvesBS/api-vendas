@@ -5,4 +5,5 @@ export const messageHelper = {
   INVALID_USER: 'Invalid credentials',
   INVALID_TOKEN: 'The token is invalid',
   TOKEN_MISSING: 'The header does not have a token',
+  USER_NOT_FOUND: 'User not found',
 };
