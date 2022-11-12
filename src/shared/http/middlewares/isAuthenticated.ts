@@ -18,7 +18,13 @@ export const isAuthenticated = (
   const [, token] = authHeader.split(' ');
 
   try {
-    verify(token, auth.jwtSecret);
+    const decodedToken = verify(token, auth.jwtSecret);
+
+    const { sub } = decodedToken;
+
+    request.user = {
+      id: sub,
+    };
 
     return next();
   } catch {
