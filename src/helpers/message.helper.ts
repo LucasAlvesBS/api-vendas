@@ -6,4 +6,6 @@ export const messageHelper = {
   INVALID_TOKEN: 'The token is invalid',
   TOKEN_MISSING: 'The header does not have a token',
   USER_NOT_FOUND: 'User not found',
+  TOKEN_NOT_FOUND: 'User Token does not exist',
+  TOKEN_EXPIRED: 'Token expired',
 };

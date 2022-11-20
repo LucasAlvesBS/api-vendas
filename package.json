@@ -8,7 +8,7 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
-    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config server/environments/database.ts"
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +36,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cors": "^2.8.5",
+    "date-fns": "^2.29.3",
     "dotenv": "^16.0.2",
     "errors": "^0.3.0",
     "express": "^4.18.1",
