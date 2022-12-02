@@ -8,4 +8,6 @@ export const messageHelper = {
   USER_NOT_FOUND: 'User not found',
   TOKEN_NOT_FOUND: 'User Token does not exist',
   TOKEN_EXPIRED: 'Token expired',
+  OLD_PASSWORD_REQUIRED: 'Old password is required',
+  DOES_NOT_MATCH: 'Old password does not match',
 };

@@ -14,15 +14,7 @@ const upload = multer(uploadConfig);
 
 usersRouter.get('/', isAuthenticated, usersController.index);
 
-usersRouter.get(
-  '/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
-  }),
-  usersController.show,
-);
+usersRouter.get('/profile', isAuthenticated, usersController.show);
 
 usersRouter.post(
   '/',
@@ -42,19 +34,24 @@ usersRouter.post(
 );
 
 usersRouter.put(
-  '/:id',
+  '/profile',
+  isAuthenticated,
   celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
     [Segments.BODY]: {
       name: Joi.string().trim().required(),
       email: Joi.string().email().required(),
+      oldPassword: Joi.string(),
       password: Joi.string()
         .regex(
           /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
         )
-        .required(),
+        .optional(),
+      password_confirmation: Joi.string()
+        .valid(Joi.ref('password'))
+        .when('password', {
+          is: Joi.exist(),
+          then: Joi.required(),
+        }),
     },
   }),
   usersController.update,
@@ -67,14 +64,6 @@ usersRouter.patch(
   usersAvatarController.update,
 );
 
-usersRouter.delete(
-  '/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
-  }),
-  usersController.delete,
-);
+usersRouter.delete('/profile', isAuthenticated, usersController.delete);
 
 export default usersRouter;

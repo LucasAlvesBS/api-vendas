@@ -15,7 +15,7 @@ export default class UsersController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    const id = request.user.id as string;
 
     const showUser = new ShowUserService();
 
@@ -39,18 +39,18 @@ export default class UsersController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { name, email, password } = request.body;
-    const { id } = request.params;
+    const { name, email, password, oldPassword } = request.body;
+    const id = request.user.id as string;
 
     const updateUser = new UpdateUserService();
 
-    await updateUser.execute({ id, name, email, password });
+    await updateUser.execute({ id, name, email, password, oldPassword });
 
     return response.status(204).json();
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    const id = request.user.id as string;
 
     const deleteUser = new DeleteUserService();
 

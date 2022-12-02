@@ -8,10 +8,10 @@ interface IRquest {
 }
 
 class DeleteUserService {
-  public async execute(id: IRquest): Promise<void> {
+  public async execute({ id }: IRquest): Promise<void> {
     const usersRepository = getCustomRepository(UsersRepository);
 
-    const user = await usersRepository.findOne(id);
+    const user = await usersRepository.findById(id);
 
     if (!user) {
       throw new AppError(messageHelper.NOT_FOUND, 404);
