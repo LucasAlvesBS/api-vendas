@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import ProductsController from '../controllers/ProductsController';
 import { celebrate, Joi, Segments } from 'celebrate';
+import { isAuthenticated } from '@shared/http/middlewares/isAuthenticated';
 
 const productsRouter = Router();
 const productsController = new ProductsController();
@@ -19,6 +20,7 @@ productsRouter.get(
 
 productsRouter.post(
   '/',
+  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().trim().required(),
@@ -31,6 +33,7 @@ productsRouter.post(
 
 productsRouter.put(
   '/:id',
+  isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
@@ -46,6 +49,7 @@ productsRouter.put(
 
 productsRouter.delete(
   '/:id',
+  isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
